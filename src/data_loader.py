@@ -1,20 +1,24 @@
 import pandas as pd
 import psycopg2
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import re
 from io import StringIO
 from logger import logger
+from psycopg2 import sql
+
 
 def load_data(connection_params: dict, table_name: str, file_path: str) -> pd.DataFrame:
-
-    # Extract connection parameters
-    db_url = f"postgresql+psycopg2://{connection_params['user']}:{connection_params['password']}@{connection_params['host']}:{connection_params['port']}/{connection_params['database']}"
-
     try:
-        # Try fetching data from the database
-        engine = create_engine(db_url, echo=False)
-        query = f"SELECT * FROM {table_name}"
-        df = pd.read_sql_query(query, engine)
+        # Connect to the database
+        conn = psycopg2.connect(**connection_params)
+        cursor = conn.cursor()
+
+        # Fetch data from the database
+        query = sql.SQL("SELECT * FROM {}").format(sql.Identifier(table_name))
+        cursor.execute(query)
+        columns = [desc[0] for desc in cursor.description]
+        data = cursor.fetchall()
+        df = pd.DataFrame(data, columns=columns)
 
         # Log information
         logger.info("Successfully fetched data from the database.")
@@ -36,16 +40,20 @@ def load_data(connection_params: dict, table_name: str, file_path: str) -> pd.Da
             df = pd.DataFrame()
 
     finally:
-        # Close the connection
-        if engine:
-            engine.dispose()
+        # Close the cursor and connection
+        if cursor:
+            cursor.close()
+        if conn:
+            conn.close()
             logger.info("Database connection closed.")
 
     return df
 
 
+
 def load_sql_to_dataframe(file_path: str) -> pd.DataFrame:
     try:
+
         # Read the content of the SQL dump file
         with open(file_path, 'r') as file:
             sql_dump = file.read()
@@ -67,6 +75,7 @@ def load_sql_to_dataframe(file_path: str) -> pd.DataFrame:
 
         # Set column names
         df.columns = columns
+
         logger.info('Load sql file dumped data to pandas dataframe.')
     except Exception as e:
             logger.error(e)
@@ -104,11 +113,13 @@ def run_sql_query(connection_params: dict, query: str) -> None:
 
 
 def populate_dataframe_to_database(connection_params: dict, df: pd.DataFrame, table_name:str) -> None:
-
-    # Extract connection parameters
-    db_url = f"postgresql+psycopg2://{connection_params['user']}:{connection_params['password']}@{connection_params['host']}:{connection_params['port']}/{connection_params['database']}"
-
     try:
+
+        # Extract connection parameters
+        db_url = f"postgresql+psycopg2://{connection_params['user']}:{connection_params['password']}@{connection_params['host']}:{connection_params['port']}/{connection_params['database']}"
+
+        
+
         # Create database connection
         engine = create_engine(db_url, echo=False)
 
@@ -132,3 +143,4 @@ def populate_dataframe_to_database(connection_params: dict, df: pd.DataFrame, ta
             logger.info("Database connection closed.")
 
     return None
+

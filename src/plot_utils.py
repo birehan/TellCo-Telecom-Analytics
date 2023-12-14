@@ -47,3 +47,31 @@ class PlotUtil:
         fig.update_layout(title_text=title, height=500)
 
         return fig
+
+    def multi_hist(self, sr, rows, cols, title_text, subplot_titles):
+        fig = make_subplots(rows=rows, cols=cols, subplot_titles=subplot_titles)
+        for i in range(rows):
+            for j in range(cols):
+                x = [str(i) for i in sr[i+j].index]
+                fig.add_trace(go.Bar(x=x, y=sr[i+j].values ), row=i+1, col=j+1)
+        fig.update_layout(showlegend=False, title_text=title_text)
+        fig.show()
+    
+    def plot_distribution(self, data, x_col, y_col, title, x_label, y_label):
+        """
+        Create a boxplot to visualize the distribution of data.
+
+        Parameters:
+        - data: DataFrame containing the data to be visualized.
+        - x_col: Column representing the x-axis (categorical variable).
+        - y_col: Column representing the y-axis (numeric variable).
+        - title: Title of the plot.
+        - x_label: Label for the x-axis.
+        - y_label: Label for the y-axis.
+        """
+        plt.figure(figsize=(12, 8))
+        sns.boxplot(x=x_col, y=y_col, data=data)
+        plt.title(title)
+        plt.xlabel(x_label)
+        plt.ylabel(y_label)
+        plt.show()

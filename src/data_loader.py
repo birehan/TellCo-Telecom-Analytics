@@ -130,7 +130,7 @@ def populate_dataframe_to_database(connection_params: dict, df: pd.DataFrame, ta
         df.to_sql(name=table_name, con=engine, if_exists='replace', index=False)
 
         # Log information
-        logger.info(f"Inserted {len(df)} rows into the database table 'your_table_name'.")
+        logger.info(f"Inserted {len(df)} rows into the database table {table_name}.")
 
     except Exception as e:
         # Log the error

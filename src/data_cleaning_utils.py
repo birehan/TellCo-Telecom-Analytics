@@ -140,10 +140,10 @@ class DataCleaningUtil:
         return df
     
   
-    def fix_outliers(self, df: pd.DataFrame):
+    def fix_outliers(self, df: pd.DataFrame) -> pd.DataFrame:
         try:
             #Replace Outlier values
-            for col in df.select_dtypes('float64').columns.tolist():
+            for col in df.select_dtypes('number').columns.tolist():
                 Q1 = df[col].quantile(0.25)
                 Q3 = df[col].quantile(0.75)
                 IQR = Q3 - Q1
@@ -156,3 +156,5 @@ class DataCleaningUtil:
         except Exception as e:
             logger.error(e)
         return df
+
+ 

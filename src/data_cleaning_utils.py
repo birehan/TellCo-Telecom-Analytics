@@ -140,26 +140,12 @@ class DataCleaningUtil:
         return df
     
   
-    def fix_outliers(self, df: pd.DataFrame) -> pd.DataFrame:
+    def fix_outliers(self, df: pd.DataFrame, columns: list = None) -> pd.DataFrame:
         try:
-            #Replace Outlier values
-            for col in df.select_dtypes('number').columns.tolist():
-                Q1 = df[col].quantile(0.25)
-                Q3 = df[col].quantile(0.75)
-                IQR = Q3 - Q1
-                lower = Q1 - (IQR * 1.5)
-                upper = Q3 + (IQR * 1.5)
+            if columns is None:
+                columns = df.select_dtypes('number').columns.tolist()
 
-                df[col] = np.where(df[col] > upper, upper, df[col])
-                df[col] = np.where(df[col] < lower, lower, df[col])
-                logger.info('Fix outliers')
-        except Exception as e:
-            logger.error(e)
-        return df
-
-    def fix_outliers(self, df: pd.DataFrame, columns:list) -> pd.DataFrame:
-        try:
-            #Replace Outlier values
+            # Replace Outlier values
             for col in columns:
                 Q1 = df[col].quantile(0.25)
                 Q3 = df[col].quantile(0.75)
@@ -169,9 +155,9 @@ class DataCleaningUtil:
 
                 df[col] = np.where(df[col] > upper, upper, df[col])
                 df[col] = np.where(df[col] < lower, lower, df[col])
-                logger.info('Fix outliers')
+
+            logger.info('Fix outliers')
         except Exception as e:
             logger.error(e)
-        return df
 
- 
+        return df

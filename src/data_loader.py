@@ -110,8 +110,6 @@ def run_sql_query(connection_params: dict, query: str) -> None:
 
     return None
 
-
-
 def populate_dataframe_to_database(connection_params: dict, df: pd.DataFrame, table_name:str) -> None:
     try:
 

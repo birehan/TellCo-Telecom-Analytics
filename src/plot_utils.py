@@ -23,8 +23,12 @@ class PlotUtil:
         plt.tight_layout()
         plt.show()
         
-    def plot_scatter_cluster(self, df, x_column, y_column, color_column, size_column, title=''):
-        fig = px.scatter(df, x=x_column, y=y_column, color=color_column, size=size_column, title=title)
+    def plot_scatter_cluster(self, df, x_column, y_column, color_column, size_column=None, title=''):
+        if size_column is not None:
+            fig = px.scatter(df, x=x_column, y=y_column, color=color_column, size=size_column, title=title)
+        else:
+            fig = px.scatter(df, x=x_column, y=y_column, color=color_column, title=title)
+
         return fig
 
     def plot_3d_scatter(self, df, x_column, y_column, z_column, color_column, rotation=[-1.5, -1.5, 1], title=''):

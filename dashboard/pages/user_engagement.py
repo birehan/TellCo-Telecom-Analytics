@@ -13,12 +13,20 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.join(script_dir, "../")
 
 sys.path.insert(0, parent_dir)
+files_in_current_dir = os.listdir()
 
 import utils as util
 
 st.sidebar.header("Plotting Demo")
 st.write(script_dir)
 st.write(parent_dir)
+
+if not files_in_current_dir:
+    st.write("No files found in the current directory.")
+else:
+    st.write("Files in the current directory:")
+    for file in files_in_current_dir:
+        st.write(file)
 
 
 @st.cache_data()

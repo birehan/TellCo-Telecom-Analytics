@@ -151,7 +151,8 @@ def plotting_demo():
             'cluster', 'xdr_sessions')
 
 st.sidebar.header("Plotting Demo")
-
+st.write(script_dir)
+st.write(parent_dir)
 
 plotting_demo()
 

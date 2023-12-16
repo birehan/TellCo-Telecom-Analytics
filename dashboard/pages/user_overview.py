@@ -85,10 +85,8 @@ def user_overview() -> None:
     st.dataframe(data_volumes)
 
 
-# st.set_page_config(page_title="User Overview Analysis", page_icon="📹")
 
-# st.markdown("# Animation Demo")
-st.sidebar.header("User Overview Demo")
+st.sidebar.header("User Overview")
 
 user_overview()
 

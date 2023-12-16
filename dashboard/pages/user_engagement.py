@@ -13,7 +13,7 @@ files_in_current_dir = os.listdir()
 
 import utils as util
 
-st.sidebar.header("Plotting Demo")
+st.sidebar.header("User Engagement")
 
 @st.cache_data()
 def load_data():
@@ -42,9 +42,7 @@ def user_engagement():
 
 
     st.title("User Engagement Analysis")
-    st.header('Here is sample data from the cleaned table')
     clean_data_df = load_data()
-    st.dataframe(clean_data_df.head(1000))
     app_clean_data_df = clean_data_df[['msisdn_number', 'social_media_total_bytes', 'google_total_bytes',
                                    'email_total_bytes', 'youtube_total_bytes', 'netflix_total_bytes',
                                    'gaming_total_bytes', 'other_total_bytes']]

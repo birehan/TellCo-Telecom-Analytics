@@ -121,7 +121,7 @@ def user_satisfaction():
     st.dataframe(data)
 
 
-st.sidebar.header("DataFrame Demo")
+st.sidebar.header("User Satisfaction")
 
 
 user_satisfaction()

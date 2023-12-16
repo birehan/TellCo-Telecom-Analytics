@@ -87,7 +87,7 @@ def user_experience():
     
 
 
-st.sidebar.header("Mapping Demo")
+st.sidebar.header("User Experience")
 
 
 user_experience()

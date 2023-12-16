@@ -16,6 +16,5 @@ def run():
 
     st.sidebar.success("Select a section above.")
 
-
 if __name__ == "__main__":
     run()

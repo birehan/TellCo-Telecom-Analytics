@@ -1,21 +1,28 @@
 # Use an official Python runtime as a parent image
-FROM python:3.12
+FROM python:3.12-slim
 
-# Set the working directory in the container
+# Install build dependencies
+RUN apt-get update \
+    && apt-get install -y gcc build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory to /app
 WORKDIR /app
 
-# Copy the contents of the dashboard folder into the container at /app
-COPY dashboard /app
+# Copy the current directory contents into the container at /app
+COPY . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r /app/requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Expose the port that Streamlit will run on
-EXPOSE 8501
+# Make port 80 available to the world outside this container
+EXPOSE 80
 
 # Define environment variable
-ENV LC_ALL=C.UTF-8
-ENV LANG=C.UTF-8
+ENV NAME World
 
-# Run streamlit when the container launches
-CMD ["streamlit", "run", "/app/dashboard/dashboard.py"]
+# Run app.py when the container launches
+CMD ["python", "your_main_script.py"]
+
+# # Run streamlit when the container launches
+# CMD ["streamlit", "run", "/app/dashboard/dashboard.py"]

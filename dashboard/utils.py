@@ -1,6 +1,7 @@
 import inspect
 import textwrap
 import streamlit as st
+import plotly.express as px
 
 def show_code(demo):
     """Showing the code of the demo."""
@@ -10,7 +11,8 @@ def show_code(demo):
         st.markdown("## Code")
         sourcelines, _ = inspect.getsourcelines(demo)
     st.code(textwrap.dedent("".join(sourcelines[1:])))
-    
-def local_css(file_name):
-    with open(file_name) as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+def plotly_plot_scatter(df, x_col, y_col, color, size):
+    fig = px.scatter(df, x=x_col, y=y_col,
+                 color=color, size=size)
+    st.plotly_chart(fig)

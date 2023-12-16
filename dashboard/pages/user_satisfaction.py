@@ -5,7 +5,8 @@ import pandas as pd
 import streamlit as st
 import sys
 sys.path.insert(0, '../')
-from utils import show_code
+
+from utils import show_code, plotly_plot_scatter
 
 @st.cache_data()
 def load_sat_only_scores_data():
@@ -16,11 +17,6 @@ def load_sat_only_scores_data():
 def load_sat_score_data():
     sat_score_df = pd.read_csv("../data/tellco_user_satisfaction_score_data.csv")
     return sat_score_df
-
-def plotly_plot_scatter(df, x_col, y_col, color, size):
-    fig = px.scatter(df, x=x_col, y=y_col,
-                 color=color, size=size)
-    st.plotly_chart(fig)
 
 def data_frame_demo():
     with open('./style/style.css') as f:

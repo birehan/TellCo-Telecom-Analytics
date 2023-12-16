@@ -7,7 +7,7 @@ import pydeck as pdk
 import streamlit as st
 import sys
 sys.path.insert(0, '../')
-from utils import show_code
+from utils import show_code,plotly_plot_scatter
 @st.cache_data()
 def load_data():
     clean_data_df = pd.read_csv("../data/cleaned_tellco_data.csv")
@@ -20,12 +20,6 @@ def load_eng_data():
 
 clean_data_df = load_data()
 eng_data_df = load_eng_data()
-
-def plotly_plot_scatter(df, x_col, y_col, color, size):
-    fig = px.scatter(df, x=x_col, y=y_col,
-                 color=color, size=size)
-    st.plotly_chart(fig)
-
 
 
 def mapping_demo():

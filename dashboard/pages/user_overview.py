@@ -7,8 +7,9 @@ import pandas as pd
 import streamlit as st
 import sys
 sys.path.insert(0, '../')
-from utils import show_code
 import plotly.express as px
+
+from utils import show_code
 
 @st.cache_data()
 def load_data():

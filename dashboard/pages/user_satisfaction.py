@@ -1,6 +1,4 @@
-from urllib.error import URLError
 import plotly.express as px
-import altair as alt
 import pandas as pd
 import streamlit as st
 import sys
@@ -17,6 +15,11 @@ def load_sat_only_scores_data():
 def load_sat_score_data():
     sat_score_df = pd.read_csv("../data/tellco_user_satisfaction_score_data.csv")
     return sat_score_df
+
+def plotly_plot_scatter(df, x_col, y_col, color, size):
+    fig = px.scatter(df, x=x_col, y=y_col,
+                 color=color, size=size)
+    st.plotly_chart(fig)
 
 def data_frame_demo():
     with open('./style/style.css') as f:

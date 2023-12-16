@@ -1,6 +1,4 @@
 
-import time
-import numpy as np
 import streamlit as st
 import sys
 import plotly.express as px
@@ -8,7 +6,7 @@ import pandas as pd
 
 sys.path.insert(0, '../')
 
-from utils import show_code,plotly_plot_scatter
+from utils import show_code
 import sys
 
 @st.cache_data()
@@ -24,15 +22,13 @@ def load_eng_data():
 clean_data_df = load_data()
 eng_data_df = load_eng_data()
 
+def plotly_plot_scatter(df, x_col, y_col, color, size):
+    fig = px.scatter(df, x=x_col, y=y_col,
+                 color=color, size=size)
+    st.plotly_chart(fig)
 
 
-
-def user_engagement():
-    with open('./style/style.css') as f:
-      css = f.read()
-
-    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
-
+def plotting_demo():
     st.title("User Engagement Analysis")
     st.header('Here is sample data from the cleaned table')
     clean_data_df = load_data()
@@ -147,6 +143,6 @@ def user_engagement():
 st.sidebar.header("Plotting Demo")
 
 
-user_engagement()
+plotting_demo()
 
-show_code(user_engagement)
+show_code(plotting_demo)

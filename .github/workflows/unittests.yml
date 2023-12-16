@@ -1,0 +1,38 @@
+name: run-tests
+
+on:
+  pull_request:
+    branches:
+      - unit-test
+  push:
+    branches:
+      - unit-test
+
+jobs:
+  Run-unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install python
+        run: sudo apt update && DEBIAN_FRONTEND=noninteractive sudo apt install -y python3
+
+      - name: Install pip
+        run: sudo apt install -y python3-pip
+
+      - name: Install requirements
+        run: pip3 install -r src/requirements.txt
+
+      # Run test cases and generate JUnit XML report
+      - name: Run test cases and generate JUnit XML report
+        id: test
+        run: |
+          pytest src/tests --junitxml=report.xml
+          echo "::set-output name=report_path::report.xml"
+
+      # Upload JUnit XML report as an artifact
+      - name: Upload JUnit XML report
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-report
+          path: ${{ steps.test.outputs.report_path }}

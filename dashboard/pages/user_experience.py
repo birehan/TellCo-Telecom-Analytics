@@ -1,9 +1,6 @@
 
-from urllib.error import URLError
 import plotly.express as px
 import pandas as pd
-import pydeck as pdk
-
 import streamlit as st
 import sys
 sys.path.insert(0, '../')

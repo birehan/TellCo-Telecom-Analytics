@@ -6,7 +6,7 @@ def run():
         page_icon="🌐",
     )
 
-    with open('./style/style.css') as f:
+    with open('style/style.css') as f:
       css = f.read()
 
     st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)

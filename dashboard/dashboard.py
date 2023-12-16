@@ -12,6 +12,7 @@ def run():
     # st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
     st.write("# Tellco Telecom Analytics! 🌐")
+    st.write("trial 1")
 
     st.sidebar.success("Select a section above.")
 

@@ -1,8 +1,17 @@
 import pandas as pd
 import streamlit as st
 import sys
-sys.path.insert(0, '../')
-from utils import show_code
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Add a parent directory ("..") to the absolute path
+parent_dir = os.path.join(script_dir, "../")
+
+sys.path.insert(0, parent_dir)
+
+import utils as util
+
 
 @st.cache_data()
 def load_data():
@@ -12,10 +21,10 @@ def load_data():
 clean_data_df = load_data()
 
 def user_overview() -> None:
-    with open('./style/style.css') as f:
-      css = f.read()
+    # with open('./style/style.css') as f:
+    #   css = f.read()
 
-    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+    # st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 
     st.title("User Overview Analysis")
@@ -85,4 +94,4 @@ st.sidebar.header("User Overview Demo")
 
 user_overview()
 
-show_code(user_overview)
+util.show_code(user_overview)

@@ -2,9 +2,18 @@
 import plotly.express as px
 import pandas as pd
 import streamlit as st
+import os
 import sys
-sys.path.insert(0, '../')
-from utils import show_code,plotly_plot_scatter
+# Get the absolute path of the directory containing the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Add a parent directory ("..") to the absolute path
+parent_dir = os.path.join(script_dir, "../")
+
+sys.path.insert(0, parent_dir)
+
+import utils as util
+
 @st.cache_data()
 def load_data():
     clean_data_df = pd.read_csv("../data/cleaned_tellco_data.csv")
@@ -20,10 +29,10 @@ eng_data_df = load_eng_data()
 
 
 def mapping_demo():
-    with open('./style/style.css') as f:
-      css = f.read()
+    # with open('./style/style.css') as f:
+    #   css = f.read()
 
-    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+    # st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
     st.title("User Experience Analysis")
     tellco_exprience_df = load_data()
@@ -74,7 +83,7 @@ def mapping_demo():
     st.write("")
     st.write("")
     st.markdown("***Users classified into 3 clusters based on their experience(i.e. average RTT, TCP retransmission', and throughput).***")
-    plotly_plot_scatter(exp_data_df, 'total_tcp_dl_retrans_vol_bytes', 'total_avg_bearer_tp_kbps',
+    util.plotly_plot_scatter(exp_data_df, 'total_tcp_dl_retrans_vol_bytes', 'total_avg_bearer_tp_kbps',
             'cluster', 'total_avg_rtt_dl_ms')
     
 
@@ -84,4 +93,4 @@ st.sidebar.header("Mapping Demo")
 
 mapping_demo()
 
-show_code(mapping_demo)
+util.show_code(mapping_demo)

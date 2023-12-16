@@ -1,10 +1,17 @@
-import plotly.express as px
 import pandas as pd
 import streamlit as st
-import sys
-sys.path.insert(0, '../')
 
-from utils import show_code, plotly_plot_scatter
+import sys
+import os
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Add a parent directory ("..") to the absolute path
+parent_dir = os.path.join(script_dir, "../")
+
+sys.path.insert(0, parent_dir)
+
+import utils as util
 
 @st.cache_data()
 def load_sat_only_scores_data():
@@ -16,16 +23,13 @@ def load_sat_score_data():
     sat_score_df = pd.read_csv("../data/tellco_user_satisfaction_score_data.csv")
     return sat_score_df
 
-def plotly_plot_scatter(df, x_col, y_col, color, size):
-    fig = px.scatter(df, x=x_col, y=y_col,
-                 color=color, size=size)
-    st.plotly_chart(fig)
+
 
 def data_frame_demo():
-    with open('./style/style.css') as f:
-      css = f.read()
+    # with open('./style/style.css') as f:
+    #   css = f.read()
 
-    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+    # st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
 
 
     st.title("User Satisfaction Analysis")
@@ -63,7 +67,7 @@ def data_frame_demo():
     st.write(eng_df.head(1000))
     st.write("")
     st.markdown("**Users classified into 6 clusters based on their engagement(i.e. number of xdr_sessions, duration and total data used).**")
-    plotly_plot_scatter(sat_score_df, 'total_data_bytes', 'dur_ms',
+    util.plotly_plot_scatter(sat_score_df, 'total_data_bytes', 'dur_ms',
             'engagement_cluster', 'xdr_sessions')
 
     
@@ -74,7 +78,7 @@ def data_frame_demo():
     st.write(exp_df.head(1000))
     st.write("")
     st.markdown("**Users classified into 3 clusters based on their experience(i.e. average RTT, TCP retransmission', and throughput).**")
-    plotly_plot_scatter(sat_score_df, 'total_tcp_dl_retrans_vol_bytes', 'total_avg_bearer_tp_kbps',
+    util.plotly_plot_scatter(sat_score_df, 'total_tcp_dl_retrans_vol_bytes', 'total_avg_bearer_tp_kbps',
             'experience_cluster', 'total_avg_rtt_dl_ms')
 
     st.write("")
@@ -83,7 +87,7 @@ def data_frame_demo():
     st.write(sat_df.head(1000))
     st.write("")
     st.markdown("**Users classified into 2 clusters based on their satisfactio(i.e. engagement score and experience score).**")
-    plotly_plot_scatter(sat_only_scores_df, 'engagement_score', 'experience_score',
+    util.plotly_plot_scatter(sat_only_scores_df, 'engagement_score', 'experience_score',
             'cluster', 'satisfaction_score')
     
     st.write("")
@@ -125,4 +129,4 @@ st.sidebar.header("DataFrame Demo")
 
 data_frame_demo()
 
-show_code(data_frame_demo)
+util.show_code(data_frame_demo)

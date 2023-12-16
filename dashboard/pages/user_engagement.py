@@ -31,12 +31,12 @@ else:
 
 @st.cache_data()
 def load_data():
-    clean_data_df = pd.read_csv("../../data/cleaned_tellco_data.csv")
+    clean_data_df = pd.read_csv("data/cleaned_tellco_data.csv")
     return clean_data_df
 
 @st.cache_data()
 def load_eng_data():
-    eng_data_df = pd.read_csv("../../data/tellco_user_engagement_data.csv")
+    eng_data_df = pd.read_csv("data/tellco_user_engagement_data.csv")
     return eng_data_df
 
 clean_data_df = load_data()

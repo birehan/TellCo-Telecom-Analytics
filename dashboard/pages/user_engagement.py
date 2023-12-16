@@ -16,7 +16,9 @@ sys.path.insert(0, parent_dir)
 
 import utils as util
 
-
+st.sidebar.header("Plotting Demo")
+st.write(script_dir)
+st.write(parent_dir)
 
 
 @st.cache_data()
@@ -150,9 +152,7 @@ def plotting_demo():
     plotly_plot_scatter(eng_data_df, 'total_data_bytes', 'dur_ms',
             'cluster', 'xdr_sessions')
 
-st.sidebar.header("Plotting Demo")
-st.write(script_dir)
-st.write(parent_dir)
+
 
 plotting_demo()
 

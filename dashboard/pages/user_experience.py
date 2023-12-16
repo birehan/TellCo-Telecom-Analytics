@@ -4,10 +4,8 @@ import pandas as pd
 import streamlit as st
 import os
 import sys
-# Get the absolute path of the directory containing the script
-script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Add a parent directory ("..") to the absolute path
+script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.join(script_dir, "../")
 
 sys.path.insert(0, parent_dir)
@@ -28,7 +26,7 @@ clean_data_df = load_data()
 eng_data_df = load_eng_data()
 
 
-def mapping_demo():
+def user_experience():
     with open('dashboard/style/style.css') as f:
       css = f.read()
 
@@ -92,6 +90,6 @@ def mapping_demo():
 st.sidebar.header("Mapping Demo")
 
 
-mapping_demo()
+user_experience()
 
-util.show_code(mapping_demo)
+util.show_code(user_experience)

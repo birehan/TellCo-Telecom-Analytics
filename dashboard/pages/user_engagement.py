@@ -6,12 +6,8 @@ import os
 import sys
 
 
-# Get the absolute path of the directory containing the script
 script_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Add a parent directory ("..") to the absolute path
 parent_dir = os.path.join(script_dir, "../")
-
 sys.path.insert(0, parent_dir)
 files_in_current_dir = os.listdir()
 
@@ -38,7 +34,7 @@ def plotly_plot_scatter(df, x_col, y_col, color, size):
     st.plotly_chart(fig)
 
 
-def plotting_demo():
+def user_engagement():
     with open('dashboard/style/style.css') as f:
       css = f.read()
 
@@ -158,6 +154,6 @@ def plotting_demo():
 
 
 
-plotting_demo()
+user_engagement()
 
-util.show_code(plotting_demo)
+util.show_code(user_engagement)

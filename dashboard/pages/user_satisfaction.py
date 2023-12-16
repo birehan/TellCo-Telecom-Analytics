@@ -5,8 +5,6 @@ import sys
 import os
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Add a parent directory ("..") to the absolute path
 parent_dir = os.path.join(script_dir, "../")
 
 sys.path.insert(0, parent_dir)
@@ -23,9 +21,7 @@ def load_sat_score_data():
     sat_score_df = pd.read_csv("data/tellco_user_satisfaction_score_data.csv")
     return sat_score_df
 
-
-
-def data_frame_demo():
+def user_satisfaction():
     with open('dashboard/style/style.css') as f:
       css = f.read()
 
@@ -128,6 +124,6 @@ def data_frame_demo():
 st.sidebar.header("DataFrame Demo")
 
 
-data_frame_demo()
+user_satisfaction()
 
-util.show_code(data_frame_demo)
+util.show_code(user_satisfaction)

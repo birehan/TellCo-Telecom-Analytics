@@ -1,17 +1,14 @@
 import pandas as pd
 import streamlit as st
+import plotly.express as px
 import sys
 import os
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
-
-# Add a parent directory ("..") to the absolute path
 parent_dir = os.path.join(script_dir, "../")
-
 sys.path.insert(0, parent_dir)
 
 import utils as util
-
 
 @st.cache_data()
 def load_data():

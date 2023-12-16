@@ -15,16 +15,17 @@ import utils as util
 
 @st.cache_data()
 def load_data():
-    clean_data_df = pd.read_csv("../data/cleaned_tellco_data.csv")
+    clean_data_df = pd.read_csv("data/cleaned_tellco_data.csv")
     return clean_data_df
 
 clean_data_df = load_data()
 
 def user_overview() -> None:
-    # with open('./style/style.css') as f:
-    #   css = f.read()
+    with open('dashboard/style/style.css') as f:
+      css = f.read()
 
-    # st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+
 
 
     st.title("User Overview Analysis")

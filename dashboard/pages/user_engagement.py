@@ -18,16 +18,6 @@ files_in_current_dir = os.listdir()
 import utils as util
 
 st.sidebar.header("Plotting Demo")
-st.write(script_dir)
-st.write(parent_dir)
-
-if not files_in_current_dir:
-    st.write("No files found in the current directory.")
-else:
-    st.write("Files in the current directory:")
-    for file in files_in_current_dir:
-        st.write(file)
-
 
 @st.cache_data()
 def load_data():
@@ -49,6 +39,12 @@ def plotly_plot_scatter(df, x_col, y_col, color, size):
 
 
 def plotting_demo():
+    with open('dashboard/style/style.css') as f:
+      css = f.read()
+
+    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+
+
     st.title("User Engagement Analysis")
     st.header('Here is sample data from the cleaned table')
     clean_data_df = load_data()

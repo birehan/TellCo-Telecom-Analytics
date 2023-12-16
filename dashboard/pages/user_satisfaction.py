@@ -15,21 +15,22 @@ import utils as util
 
 @st.cache_data()
 def load_sat_only_scores_data():
-    sat_only_scores_df = pd.read_csv("../data/user_satisfaction.csv")
+    sat_only_scores_df = pd.read_csv("data/user_satisfaction.csv")
     return sat_only_scores_df
 
 @st.cache_data()
 def load_sat_score_data():
-    sat_score_df = pd.read_csv("../data/tellco_user_satisfaction_score_data.csv")
+    sat_score_df = pd.read_csv("data/tellco_user_satisfaction_score_data.csv")
     return sat_score_df
 
 
 
 def data_frame_demo():
-    # with open('./style/style.css') as f:
-    #   css = f.read()
+    with open('dashboard/style/style.css') as f:
+      css = f.read()
 
-    # st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+
 
 
     st.title("User Satisfaction Analysis")

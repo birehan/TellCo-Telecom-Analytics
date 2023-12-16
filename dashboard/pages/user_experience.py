@@ -16,12 +16,12 @@ import utils as util
 
 @st.cache_data()
 def load_data():
-    clean_data_df = pd.read_csv("../data/cleaned_tellco_data.csv")
+    clean_data_df = pd.read_csv("data/cleaned_tellco_data.csv")
     return clean_data_df
 
 @st.cache_data()
 def load_eng_data():
-    eng_data_df = pd.read_csv("../data/tellco_user_experience_data.csv")
+    eng_data_df = pd.read_csv("data/tellco_user_experience_data.csv")
     return eng_data_df
 
 clean_data_df = load_data()
@@ -29,10 +29,11 @@ eng_data_df = load_eng_data()
 
 
 def mapping_demo():
-    # with open('./style/style.css') as f:
-    #   css = f.read()
+    with open('dashboard/style/style.css') as f:
+      css = f.read()
 
-    # st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+    st.markdown(f'<style>{css}</style>', unsafe_allow_html=True)
+
 
     st.title("User Experience Analysis")
     tellco_exprience_df = load_data()
